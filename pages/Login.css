@@ -1,0 +1,363 @@
+/* 
+ * Campus Connect Cinematic Auth Theme
+ * Madan Mohan Malaviya University of Technology
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=Oswald:wght@500;700&display=swap');
+
+:root {
+  --cc-navy: #020617;
+  --cc-purple: #1e1b4b;
+  --cc-charcoal: #0f172a;
+  --cc-gold: #fbbf24;
+  --cc-blue: #3b82f6;
+  --cc-glass: rgba(15, 23, 42, 0.55);
+  --cc-border: rgba(255, 255, 255, 0.12);
+}
+
+.cc-gateway-page {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: var(--cc-navy);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Cinematic Background */
+.cc-bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: 
+    radial-gradient(circle at 10% 10%, var(--cc-purple) 0%, transparent 40%),
+    radial-gradient(circle at 90% 90%, #111827 0%, transparent 50%),
+    linear-gradient(to bottom, #020617, #0f172a);
+}
+
+.cc-mesh-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.626 10.384L54.626 0L59.626 0L59.626 5.384L54.626 10.384ZM0 5.384L0 0L5 0L0 5.384ZM5 60L0 60L0 55L5 60ZM60 55L60 60L55 60L60 55ZM54.626 59.626L59.626 59.626L59.626 54.626L54.626 59.626ZM0 54.626L0 59.626L5 59.626L0 54.626ZM59.626 5L59.626 0L54.626 0L59.626 5ZM5 0L0 0L0 5L5 0Z' fill='%23ffffff' fill-opacity='0.02' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
+.cc-ambient-blob {
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%);
+  filter: blur(140px);
+  border-radius: 50%;
+  animation: float-blob 30s infinite alternate ease-in-out;
+}
+
+@keyframes float-blob {
+  0% { transform: translate(-10%, -10%) scale(1); }
+  100% { transform: translate(15%, 15%) scale(1.1); }
+}
+
+/* Full Screen Container - Centered and Spaced */
+.cc-main-container {
+  flex: 1;
+  display: flex;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 0 40px;
+}
+
+@media (max-width: 1024px) {
+  .cc-main-container { flex-direction: column; overflow-y: auto; height: auto; padding: 120px 20px 40px; }
+}
+
+/* Hero Section */
+.cc-hero-section {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 5%;
+  animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 1024px) {
+  .cc-hero-section { padding: 40px; text-align: center; align-items: center; flex: none; width: 100%; }
+}
+
+.cc-display-text {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(3.5rem, 7vw, 7.5rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  margin: 0;
+}
+
+.cc-reveal {
+  display: block;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: reveal-text 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.cc-reveal-1 { animation-delay: 0.2s; }
+.cc-reveal-2 { animation-delay: 0.4s; }
+
+/* STATIC Multi-color gradient for Malaviyans - Removed animation for visibility */
+.cc-typewriter-glow {
+  background: linear-gradient(
+    90deg, 
+    #ff7eb3 0%, 
+    #ff758c 20%, 
+    #7afcff 40%, 
+    #fe90af 60%, 
+    #7579ff 80%,
+    #fbbf24 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+  text-shadow: none;
+  filter: drop-shadow(0 0 1px rgba(255,255,255,0.1));
+}
+
+.cc-brand-meta {
+  margin-top: 40px;
+  border-left: 4px solid var(--cc-gold);
+  padding-left: 24px;
+  opacity: 0;
+  animation: fade-in 1s ease-out 1s forwards;
+}
+
+@media (max-width: 1024px) {
+  .cc-brand-meta { border-left: none; border-top: 4px solid var(--cc-gold); padding-left: 0; padding-top: 24px; margin-top: 24px; }
+}
+
+.cc-brand-id {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: var(--cc-gold);
+  margin-bottom: 12px;
+}
+
+.cc-brand-desc {
+  color: #94a3b8;
+  font-size: 1.1rem;
+  max-width: 460px;
+  line-height: 1.6;
+}
+
+/* Gateway Section */
+.cc-gateway-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  min-width: 500px;
+}
+
+@media (max-width: 1024px) {
+  .cc-gateway-section { padding: 40px 20px; width: 100%; max-width: 540px; min-width: auto; }
+}
+
+.cc-glass-card {
+  background: var(--cc-glass);
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  border: 1px solid var(--cc-border);
+  border-radius: 44px;
+  padding: 60px;
+  width: 100%;
+  max-width: 580px; 
+  box-shadow: 
+    0 50px 120px -30px rgba(0,0,0,0.8),
+    inset 0 0 80px rgba(255,255,255,0.03);
+  animation: slide-in-right 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cc-glass-card:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+  transform: translateY(-8px);
+  box-shadow: 0 60px 140px -30px rgba(0,0,0,0.9), 0 0 40px rgba(59, 130, 246, 0.1);
+}
+
+.cc-card-header {
+  margin-bottom: 48px;
+}
+
+.cc-card-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: #fff;
+  margin: 0;
+}
+
+.cc-header-accent {
+  width: 90px;
+  height: 6px;
+  background: linear-gradient(to right, var(--cc-blue), var(--cc-purple));
+  margin-top: 20px;
+  border-radius: 6px;
+  animation: grow-width 1s ease-out 1.2s both;
+}
+
+/* Role Selector Styles */
+.cc-role-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cc-role-row {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 32px;
+  padding: 28px 36px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: left;
+  width: 100%;
+}
+
+.cc-role-row:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: var(--cc-blue);
+  transform: translateX(12px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(59, 130, 246, 0.15);
+}
+
+.cc-role-icon-box {
+  width: 68px;
+  height: 68px;
+  background: rgba(59, 130, 246, 0.15);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cc-blue);
+  transition: all 0.4s;
+}
+
+.cc-role-row:hover .cc-role-icon-box {
+  background: var(--cc-blue);
+  color: #fff;
+  transform: scale(1.1) rotate(-8deg);
+}
+
+.cc-role-details h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 2px 0;
+  color: #fff;
+}
+
+.cc-role-details p {
+  font-size: 1rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* Auth view specific components */
+.cc-login-btn {
+  width: 100%;
+  padding: 22px;
+  border-radius: 28px;
+  border: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.cc-login-btn.google {
+  background: #ffffff;
+  color: #1f2937;
+  border: 1px solid #e5e7eb;
+}
+
+.cc-login-btn.google:hover {
+  background: #f8fafc;
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.cc-login-btn.linkedin {
+  background: #0077b5;
+  color: #fff;
+}
+
+.cc-login-btn.linkedin:hover {
+  background: #005f91;
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(0, 119, 181, 0.3);
+}
+
+.cc-input-field {
+  width: 100%;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--cc-border);
+  padding: 20px 28px;
+  border-radius: 24px;
+  color: #fff;
+  outline: none;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.cc-input-field:focus {
+  border-color: var(--cc-blue);
+  background: rgba(0,0,0,0.5);
+}
+
+/* Internal footer for Login Page - Ensure it doesn't overlap content */
+.cc-footer-bar {
+  background: rgba(2, 6, 23, 0.8);
+  backdrop-filter: blur(40px);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 16px 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 20;
+  margin-top: auto;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .cc-footer-bar { padding: 24px; flex-direction: column; gap: 12px; }
+}
+
+.cc-footer-text { font-size: 0.8rem; color: #475569; }
+
+@keyframes reveal-text { to { opacity: 1; transform: translateY(0); } }
+@keyframes slide-in-right { from { opacity: 0; transform: translateX(150px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes grow-width { from { width: 0; } to { width: 90px; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-in-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
