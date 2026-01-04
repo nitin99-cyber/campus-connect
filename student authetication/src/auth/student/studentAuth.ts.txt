@@ -1,0 +1,52 @@
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
+import { auth, db } from "../../services/firebase";
+
+const provider = new GoogleAuthProvider();
+const ALLOWED_DOMAIN = "mmmut.ac.in";
+
+export async function studentGoogleLogin() {
+  const result = await signInWithPopup(auth, provider);
+  const user = result.user;
+
+  if (!user.email) {
+    await signOut(auth);
+    throw new Error("Email not found");
+  }
+
+  // 🔐 Domain check
+  if (!user.email.endsWith(`@${ALLOWED_DOMAIN}`)) {
+    await signOut(auth);
+    throw new Error("Only MMMUT Google accounts allowed");
+  }
+
+  const rollNo = user.email.split("@")[0];
+
+  // 🔍 Check student registry
+  const registryRef = doc(db, "student_registry", rollNo);
+  const registrySnap = await getDoc(registryRef);
+
+  if (!registrySnap.exists()) {
+    await signOut(auth);
+    throw new Error("Student not found in official records");
+  }
+
+  // 👤 Create or fetch user profile
+  const userRef = doc(db, "users", user.uid);
+  const userSnap = await getDoc(userRef);
+
+  if (!userSnap.exists()) {
+    await setDoc(userRef, {
+      uid: user.uid,
+      email: user.email,
+      rollNo,
+      role: "student",
+      collegeId: "MMUT",
+      profileVerified: true,
+      profileCompleted: false,
+      createdAt: serverTimestamp(),
+    });
+  }
+
+  return { uid: user.uid, role: "student" };
+}
